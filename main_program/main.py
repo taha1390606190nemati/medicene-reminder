@@ -132,23 +132,16 @@ class Scheduler:
         self.root.after(0, show)
 
     def notify(self, patient, nurse, name):
-        print("NOTIFY CALLED")
-
-        text = f"Nurse: {nurse}\nPatient: {patient}\nMedicine: {name}"
+        text = f"Nurse: {nurse} | Patient: {patient} | Medicine: {name}"
 
         if PLYER_AVAILABLE:
             try:
-                notification.notify(
-                    title="Medicine Reminder",
-                    message=text,
-                    app_name="Medicine Reminder",
-                    timeout=10
-                )
+                notification.notify(title="Medicine Reminder", message=text, timeout=10)
             except Exception as e:
                 print(e)
                 self.alarm_popup(text)
         else:
-            print("plyer not installed")
+            self.alarm_popup(text)
 
     def reload(self):
         schedule.clear()
@@ -188,10 +181,9 @@ class App:
             try:
                 with open(
                     SETTINGS_FILE,
-                    "r",
+                    "w",
                     encoding="utf-8"
                 ) as f:
-                    self.dark_mode = json.load(f).get("dark_mode", True)
                     self.dark_mode = json.load(f).get("dark_mode", True)
             except:
                 pass
