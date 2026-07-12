@@ -346,7 +346,10 @@ class DashboardScreen(Screen):
         content = BoxLayout(orientation='vertical', padding=dp(20), spacing=dp(10))
         
         # عنوان
-        title_text = f'{self.app.role.upper()} PANEL - {self.app.fullname}'
+        role = self.app.role.upper() if self.app.role else "USER"
+        name = self.app.fullname if self.app.fullname else ""
+
+        title_text = f"{role} PANEL - {name}"        
         title = Label(
             text=title_text,
             font_size=dp(22),
