@@ -19,9 +19,16 @@ from kivy.core.window import Window
 from kivy.metrics import dp
 from kivy.utils import get_color_from_hex
 from kivy.clock import Clock
+from kivy.core.text import LabelBase
+LabelBase.register(
+    name="Roboto",
+    fn_regular="C:/Windows/Fonts/Tahoma.ttf"
+)
 from kivy.properties import StringProperty, BooleanProperty, ListProperty
 from kivy.logger import Logger
 Logger.setLevel("DEBUG")
+import arabic_reshaper
+from bidi.algorithm import get_display
 import sqlite3
 import threading as trd
 import bcrypt
@@ -37,6 +44,11 @@ Window.size = (1100, 700)
 
 DB_PATH = "medicine_mobile.db"
 SETTINGS_FILE = "settings.json"
+
+
+def fa(text):
+    reshaped_text = arabic_reshaper.reshape(text)
+    return get_display(reshaped_text)
 
 # ================= DATABASE =================
 class DBManager:
@@ -165,7 +177,7 @@ class LoginScreen(Screen):
         
         # عنوان
         title = Label(
-            text='یادآور هوشمند دارو',
+            text=fa('یادآور هوشمند دارو'),
             font_size=dp(28),
             bold=True,
             color=get_color_from_hex('#1a237e')
@@ -596,6 +608,7 @@ class DashboardScreen(Screen):
         app = App.get_running_app()
         app.dark_mode = not app.dark_mode
         app.save_settings()
+        self.clear_widgets()
         self.build_ui()
     
     def logout(self, instance):
