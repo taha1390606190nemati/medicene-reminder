@@ -135,12 +135,13 @@ This project was developed for the **Khwarizmi Youth Festival** and is intended 
 
 ---
 
-# 👨‍💻 Developer
+# 👨‍💻 Developers
 
 **Taha Nemati**
-**Aliakbar asadi**
+Python Developer | Software Engineering Enthusiast | Embedded Systems Engineer | IoT Developer
 
-Python Developer | Software Engineering Enthusiast
+**Aliakbar asadi**
+Python and web developer
 
 ---
 
