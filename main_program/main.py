@@ -12,42 +12,21 @@ from PIL import Image, ImageTk
 import os
 import random
 import json
-import sys
 
 try:
     from plyer import notification
     PLYER_AVAILABLE = True
 except:
     PLYER_AVAILABLE = False
-    
-# ---------------- PATHS ----------------
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.dirname(os.path.abspath(__file__))
 
-    return os.path.join(base_path, relative_path)
-
-
-APP_DIR = os.path.join(
-    os.getenv("LOCALAPPDATA"),
-    "MedicineReminder"
-)
-
-os.makedirs(APP_DIR, exist_ok=True)
-
-DB_PATH = os.path.join(APP_DIR, "medicine_mobile.db")
-SETTINGS_FILE = os.path.join(APP_DIR, "settings.json")
+DB_PATH = "medicine_mobile.db"
+SETTINGS_FILE = "settings.json"
 
 
 # ================= DATABASE =================
 class DBManager:
     def __init__(self):
-        self.conn = sqlite3.connect(
-            DB_PATH,
-            check_same_thread=False
-)
+        self.conn = sqlite3.connect(DB_PATH)
         self.cur = self.conn.cursor()
         self.setup()
 
@@ -137,8 +116,7 @@ class Scheduler:
         if PLYER_AVAILABLE:
             try:
                 notification.notify(title="Medicine Reminder", message=text, timeout=10)
-            except Exception as e:
-                print(e)
+            except:
                 self.alarm_popup(text)
         else:
             self.alarm_popup(text)
@@ -154,7 +132,7 @@ class Scheduler:
     def loop(self):
         while True:
             schedule.run_pending()
-            time.sleep(1)
+            time.sleep(20)
 
 
 # ================= MAIN APP =================
@@ -179,11 +157,7 @@ class App:
     def load_settings(self):
         if os.path.exists(SETTINGS_FILE):
             try:
-                with open(
-                    SETTINGS_FILE,
-                    "w",
-                    encoding="utf-8"
-                ) as f:
+                with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
                     self.dark_mode = json.load(f).get("dark_mode", True)
             except:
                 pass
@@ -243,9 +217,8 @@ class App:
         self.root.configure(bg=colors["bg"])
 
         # لوگو
-        logo_path = resource_path("medical_logo.png")
-        if os.path.exists(logo_path):
-            logo_img = Image.open(logo_path)
+        if os.path.exists("medical_logo.png"):
+            logo_img = Image.open("medical_logo.png")
             logo_img = logo_img.resize((80, 80))
             self.logo = ImageTk.PhotoImage(logo_img)
             lbl_logo = tk.Label(self.root, image=self.logo, bg=colors["bg"])
