@@ -108,18 +108,37 @@ Security has been considered from the beginning of the project.
 
 # 📂 Project Structure
 
-```
+````
+```text
 Medicine-Reminder/
 │
-├── main.py
-├── database/
-├── assets/
-├── mobile_app/
-├── settings.json
-├── medicine_mobile.db
-├── requirements.txt
-└── README.md
-```
+├── 📁 main_program/
+│   ├── main.py                    # Desktop application source code
+│   ├── medicine_mobile.db         # SQLite database
+│   ├── settings.json              # Application settings
+│   ├── requirements.txt           # Python dependencies
+│   ├── Medicine Reminder.spec     # PyInstaller configuration
+│   ├── medicine-reminder.png.ico
+│   └── medicine_icon.ico
+│
+├── 📁 mobile_app/
+│   ├── main_mobile.py             # Mobile application (Kivy)
+│   ├── medicine.kv                # Kivy UI layout
+│   ├── medicine_mobile.db         # SQLite database
+│   ├── settings.json              # Mobile app settings
+│   └── requirements.txt           # Mobile dependencies
+│
+├── 📁 intriuducing movie/
+│   └── 2026-06-26 17-23-07.mkv    # Project introduction video
+│
+├── informations.pdf               # Project documentation
+├── programming.pdf                # Technical documentation
+├── medicine-reminder.ico          # Project icon
+├── plans.md                       # Future development roadmap
+├── TODO.md                        # Planned improvements
+├── .gitignore                     # Git ignored files
+└── README.md                      # Project documentation
+````
 
 ---
 
